@@ -19,8 +19,7 @@ app.get('/payment-request/id-1234', async (req, res) => {
   try {
     const amount = req.query.amount
     const request = {
-        lnd, 
-        amount,
+        mtokens: amount,
         description: `test invoice`,
         expiry: 180
       };
@@ -28,7 +27,7 @@ app.get('/payment-request/id-1234', async (req, res) => {
     console.log(request);
   
     // Generate invoice
-    const { request: pr } = await lnService.createInvoice(request)
+    const { request: pr } = await lnService.createInvoice({ ...request, lnd })
     res.json({pr})
   } catch(error) {
     console.error(error)
