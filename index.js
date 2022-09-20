@@ -1,10 +1,9 @@
-const config = require('dotenv').config()
-
 const express = require('express')
 const app = express()
-const host = "127.0.0.1"
+const host = "172.81.0.113"
 const port = 3003
-const lnd = require('./lnd')
+const { lnd } = require('./lnd.js')
+const lnService = require('ln-service')
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -16,31 +15,25 @@ app.get('/.well-known/lnurlp/:username', (req, res) => {
 
   })
 
-app.get('/payment-request/id-1234', (req, res) => {
-
+app.get('/payment-request/id-1234', async (req, res) => {
+  try {
     const amount = req.query.amount
-    const request = { 
-        value_msat: amount,
-        memo: `test invoice`,
+    const request = {
+        lnd, 
+        amount,
+        description: `test invoice`,
         expiry: 180
       };
-
+  
     console.log(request);
-
+  
     // Generate invoice
-    lnd.lnClient.addInvoice(request, function(err, response) {
-    if (err) {
-        res.json(err)
-    }
-    else {
-        // Update invoice with r_hash
-        const lndResponse = response;
-        const r_hash_str = Buffer.from(response.r_hash).toString('hex')
+    const { request: pr } = await lnService.createInvoice(request)
+    res.json({pr})
+  } catch(error) {
+    console.error(error)
+  }
 
-        res.json({pr: lndResponse.payment_request});
-    }
-    
-})
 
 })
 
