@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/.well-known/lnurlp/:username', (req, res) => {
-    res.json({ tag: 'payRequest', callback: `http://${host}:${port}/payment-request/id-1234`, maxSendable: MAX_SENDABLE, minSendable: MIN_SENDABLE, metadata: '"[[\"text/plain\",\"Hello World!\"]]'})
+    res.json({ tag: 'payRequest', callback: `http://${host}:${port}/payment-request/id-1234`, maxSendable: MAX_SENDABLE, minSendable: MIN_SENDABLE, metadata: '[[\"text/plain\",\"Hello World!\"]]'})
 
   })
 
