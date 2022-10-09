@@ -1,21 +1,21 @@
-FROM node:16.17.0-alpine3.16
+FROM node:16.17.1-alpine3.16
 
-RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+ENV NODE_ENV=production
 
-RUN apk update && apk add \
-    -U python3 \
-    make 
-WORKDIR /home/node/app
+RUN apk add --no-cache dumb-init
 
-COPY package*.json ./
-RUN chown -R node:node /home/node/app
+RUN npm install -g pnpm@7 modclean
 
 USER node
 
-RUN npm install
+WORKDIR /home/node
 
-COPY --chown=node:node . .
+COPY package.json pnpm-lock.yaml ./
 
-EXPOSE 3003
+RUN pnpm install --production
 
-CMD [ "node", "index.js" ]
+COPY --chown=node:node index.js ./
+
+EXPOSE 3000
+
+CMD [ "dumb-init", "node", "index.js" ]

@@ -3,15 +3,21 @@
   "version": "1.0.0",
   "description": "Lightning Address payment request server for testing",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js --watch ./"
+    "start": "node index.js",
+    "dev": "nodemon index.js --watch index.js"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.3",
-    "ln-service": "^53.23.0",
-    "nodemon": "^2.0.14"
+    "dotenv": "^16.0.3",
+    "express": "4.17.3",
+    "ln-service": "54.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.20",
+    "prettier": "2.7.1"
   }
 }
