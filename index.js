@@ -51,6 +51,6 @@ app.use((error, request, response, next) => {
   response.status(500).json({ error })
 })
 
-app.listen(port, host, () => {
-  console.log(`Lightning address test server  listening on ${host}:${port}`)
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Lightning address test server  listening on 0.0.0.0:${port}`)
 })
