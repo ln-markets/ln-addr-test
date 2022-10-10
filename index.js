@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const host = process.APP_HOST || 'localhost'
+const callbackHost = process.env.CALLBACK_HOST || 'localhost'
 const port = process.env.APP_PORT || 3000
 
 const app = express()
@@ -23,7 +23,7 @@ app.get('/', (request, response) => {
 app.get('/.well-known/lnurlp/:username', (request, response) => {
   response.json({
     tag: 'payRequest',
-    callback: `http://${host}:${port}/payment-request/id-1234`,
+    callback: `http://${callbackHost}:${port}/payment-request/id-1234`,
     maxSendable: 100_000_000_000,
     minSendable: 1000,
     metadata: '[["text/plain","Hello World!"]]',
