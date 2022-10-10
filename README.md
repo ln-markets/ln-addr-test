@@ -16,7 +16,7 @@ Configured to run with an LND backend. Requires the passing of environment varia
 |     LND_HOST     |       LND Host      |
 |     LND_PORT     |      LND Port (default to 10009)       |
 |     APP_PORT     |       App port (default to 3000)      |
-|     APP_HOST     |        App host for the url callback (default to localhost)    |
+|     CALLBACK_HOST     |         Host for the url callback (default to localhost)    |
 
 ## Usage
 
