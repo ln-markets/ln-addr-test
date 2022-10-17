@@ -21,9 +21,10 @@ app.get('/', (request, response) => {
 })
 
 app.get('/.well-known/lnurlp/:username', (request, response) => {
+  const host = request.ip === '127.0.0.1' ? '127.0.0.1' : callbackHost
   response.json({
     tag: 'payRequest',
-    callback: `http://${callbackHost}:${port}/payment-request/id-1234`,
+    callback: `http://${host}:${port}/payment-request/id-1234`,
     maxSendable: 100_000_000_000,
     minSendable: 1000,
     metadata: '[["text/plain","Hello World!"]]',
