@@ -5,15 +5,15 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const callbackHost = process.env.CALLBACK_HOST || 'localhost'
-const port = process.env.APP_PORT || 6666
+const callbackHost = process.env.LN_ADDR_TEST_CALLBACK_HOST || 'localhost'
+const port = process.env.LN_ADDR_TEST_PORT || 6666
 
 const app = express()
 
 const { lnd } = authenticatedLndGrpc({
-  cert: process.env.LND_CERT,
-  macaroon: process.env.LND_MACAROON,
-  socket: `${process.env.LND_HOST}:${process.env.LND_PORT || 10009}`,
+  cert: process.env.LN_ADDR_TEST_LND_CERT,
+  macaroon: process.env.LN_ADDR_TEST_LND_MACAROON,
+  socket: `${process.env.LN_ADDR_TEST_LND_HOST}:${process.env.LN_ADDR_TEST_LND_PORT || 10009}`,
 })
 
 app.get('/', (request, response) => {
