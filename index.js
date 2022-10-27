@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const callbackHost = process.env.CALLBACK_HOST || 'localhost'
-const port = process.env.APP_PORT || 3000
+const port = process.env.APP_PORT || 6666
 
 const app = express()
 
