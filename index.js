@@ -1,6 +1,6 @@
 import process from 'node:process'
 import express from 'express'
-import { createInvoice, authenticatedLndGrpc } from 'ln-service'
+import { createInvoice, authenticatedLndGrpc, getWalletInfo } from 'ln-service'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -15,6 +15,10 @@ const { lnd } = authenticatedLndGrpc({
   macaroon: process.env.LN_ADDR_TEST_LND_MACAROON,
   socket: `${process.env.LN_ADDR_TEST_LND_HOST}:${process.env.LN_ADDR_TEST_LND_PORT || 10009}`,
 })
+
+const info = await getWalletInfo({ lnd })
+
+console.log(`Connected to ${info.alias} (${info.public_key})`)
 
 app.get('/', (request, response) => {
   response.send('Hello World!')
